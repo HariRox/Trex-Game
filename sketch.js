@@ -1,4 +1,7 @@
-var trex, trex_running, trex_collided, ground, ground_invis, ground_img, gameOver, gameOver_img, restart, restart_img, cloud_img, obstacle1, obstacle2, obstacle3, obstacle4, obstacle5, obstacle6, CloudsGroup, ObstaclesGroup, count, gameState, PLAY, END;
+var trex, trex_running, trex_collided, ground, ground_invis, ground_img, gameOver, gameOver_img, restart, restart_img, cloud_img, obstacle1, obstacle2, obstacle3, obstacle4, obstacle5, obstacle6, CloudsGroup, ObstaclesGroup, count;
+var PLAY = 1;
+var END = 0;
+var gameState = PLAY;
 
 function preload(){
   trex_running = loadAnimation ("trex1.png", "trex3.png", "trex4.png");
@@ -49,9 +52,6 @@ function setup() {
   ObstaclesGroup = new Group();
   
   count = 0;
-  gameState = PLAY;
-  PLAY = 1;
-  END = 0;
 }
 
 function draw() {
@@ -60,6 +60,9 @@ function draw() {
   text("Score: "+ count, 500, 50);
   
   if(gameState === PLAY){
+    
+    trex.x = 50;
+    
    //jump when the space key is pressed
    if(keyDown("space") && trex.collide(invisibleGround)){
    trex.velocityY = -12;
@@ -88,6 +91,7 @@ function draw() {
   }
   
   else if(gameState === END) {
+    trex.velocityY = 0;
     gameOver.visible = true;
     restart.visible = true;
     
